@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build
+.next/
+out/
+build/
+dist/
+generated/
+
+# Cache
+.cache/
+.turbo/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+node_modules/.prisma/
+
+# Test
+coverage/
+
+# Misc
+*.log
+npm-debug.log*
+pnpm-debug.log*

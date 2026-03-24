@@ -1,0 +1,31 @@
+{
+  "name": "@monoframe/ui-molecules",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "peerDependencies": {
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
+  },
+  "devDependencies": {
+    "@monoframe/eslint-config": "workspace:*",
+    "@monoframe/tsconfig": "workspace:*",
+    "@monoframe/tailwind-config": "workspace:*",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@monoframe/ui-atoms": "workspace:*"
+  }
+}

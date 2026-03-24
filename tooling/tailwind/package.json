@@ -1,0 +1,31 @@
+{
+  "name": "@monoframe/tailwind-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.ts",
+    "./web": "./web.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "postcss": "^8.5.4",
+    "tailwindcss": "catalog:",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@monoframe/eslint-config": "workspace:*",
+    "@monoframe/prettier-config": "workspace:*",
+    "@monoframe/tsconfig": "workspace:*",
+    "@types/node": "^22.15.29",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@monoframe/prettier-config"
+}

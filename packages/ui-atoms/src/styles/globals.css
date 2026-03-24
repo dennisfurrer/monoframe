@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md:
+      0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg:
+      0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* Light theme - status */
+    --color-success: #16a34a;
+    --color-success-muted: #16a34a1a;
+    --color-danger: #dc2626;
+    --color-danger-muted: #dc26261a;
+    --color-warning: #d97706;
+    --color-warning-muted: #d977061a;
+    --color-info: #2563eb;
+    --color-info-muted: #2563eb1a;
+
+    /* Light theme - brand */
+    --color-accent: #6366f1;
+    --color-accent-muted: #6366f11a;
+    --color-accent-hover: #4f46e5;
+
+    /* Light theme - surfaces */
+    --color-bg-deep: #f8fafc;
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f1f5f9;
+    --color-bg-tertiary: #e2e8f0;
+    --color-bg-elevated: #ffffff;
+
+    /* Light theme - borders */
+    --color-border-default: #e2e8f0;
+    --color-border-muted: #f1f5f9;
+    --color-border-strong: #cbd5e1;
+
+    /* Light theme - text */
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94a3b8;
+    --color-text-inverse: #ffffff;
+    --color-text-on-accent: #ffffff;
+  }
+
+  .dark {
+    /* Dark theme - status */
+    --color-success: #22c55e;
+    --color-success-muted: #22c55e1a;
+    --color-danger: #ef4444;
+    --color-danger-muted: #ef44441a;
+    --color-warning: #f59e0b;
+    --color-warning-muted: #f59e0b1a;
+    --color-info: #3b82f6;
+    --color-info-muted: #3b82f61a;
+
+    /* Dark theme - brand */
+    --color-accent: #818cf8;
+    --color-accent-muted: #818cf81a;
+    --color-accent-hover: #6366f1;
+
+    /* Dark theme - surfaces */
+    --color-bg-deep: #030712;
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-bg-tertiary: #334155;
+    --color-bg-elevated: #1e293b;
+
+    /* Dark theme - borders */
+    --color-border-default: #334155;
+    --color-border-muted: #1e293b;
+    --color-border-strong: #475569;
+
+    /* Dark theme - text */
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-text-inverse: #0f172a;
+    --color-text-on-accent: #ffffff;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary;
+  }
+}

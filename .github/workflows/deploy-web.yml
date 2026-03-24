@@ -1,0 +1,116 @@
+name: Deploy Web (AWS)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - "packages/ui-atoms/**"
+      - "packages/ui-molecules/**"
+      - "packages/db/**"
+      - "tooling/**"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NODE_VERSION: "22.14"
+  PNPM_VERSION: "10.15.0"
+  AWS_REGION: us-east-1
+
+jobs:
+  ci:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+      - run: pnpm typecheck
+      - run: pnpm lint
+
+  build:
+    name: Build
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+
+      - name: Build web app
+        run: pnpm --filter @monoframe/web build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: apps/web/.next
+          retention-days: 1
+
+  deploy:
+    name: Deploy to AWS
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: apps/web/.next
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # ──────────────────────────────────────────────
+      # Example case: Deploy standalone to EC2 / Elastic Beanstalk via S3
+      # ──────────────────────────────────────────────
+      - name: Package standalone build
+        run: |
+          cd apps/web
+          tar -czf ../../web-deploy.tar.gz .next/standalone .next/static public
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp web-deploy.tar.gz \
+            s3://${{ secrets.DEPLOY_BUCKET }}/web/${{ github.sha }}.tar.gz
+
+      - name: Trigger deploy
+        run: |
+          echo "Uploaded s3://${{ secrets.DEPLOY_BUCKET }}/web/${{ github.sha }}.tar.gz"
+          echo ""
+          echo "Next steps (configure per your infra):"
+          echo "  - CodeDeploy: create deployment with this revision"
+          echo "  - ECS: update task definition image tag"
+          echo "  - EB: create application version from S3"
+          echo "  - SSM: run deploy script on target instances"
