@@ -92,9 +92,6 @@ jobs:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # ──────────────────────────────────────────────
-      # Example case: Deploy standalone to EC2 / Elastic Beanstalk via S3
-      # ──────────────────────────────────────────────
       - name: Package standalone build
         run: |
           cd apps/web
