@@ -12,8 +12,8 @@ real work are missing or unfinished: nothing is tested, the packages cannot be
 consumed outside this repo in the state they currently publish in, and the
 deploy workflow cannot succeed as written.
 
-CI went green for the first time on the branch that added the cache package. It
-is green partly because nothing is tested.
+CI went green for the first time on the branch that added the cache package.
+`packages/cache` now has a test suite behind it; nothing else in the repo does.
 
 Short version: a good foundation that has not yet been asked to carry anything.
 
@@ -34,11 +34,11 @@ Short version: a good foundation that has not yet been asked to carry anything.
 
 ## Weaknesses
 
-- **Nothing is tested.** There are zero test files in the repo. `packages/cache`
-  is the first module with branching logic worth testing (freshness
-  transitions, single flight, eviction order, storage fallbacks, index and
-  payload drift). It was verified by hand-run scripts that were thrown away,
-  which means CI cannot re-run any of it.
+- **Only one package is tested.** `packages/cache` has a vitest suite covering
+  freshness transitions, single flight, eviction order, storage fallbacks and
+  index drift. Everything else has zero test files: neither app has a smoke
+  test, the UI packages have no render tests, and `apps/web` only passes the
+  test job because of `--passWithNoTests`.
 - **The publish path ships TypeScript source.** `ui-atoms`, `ui-molecules` and
   `cache` export `./src/index.ts` and define no `build` script, so the publish
   workflow's `pnpm build` step builds the web app and nothing else. An external
@@ -82,16 +82,15 @@ Short version: a good foundation that has not yet been asked to carry anything.
   one is not canonical will drift, and the drift is silent.
 - **The first real release is also the first test of the release path.** No
   tags, no release history, and the workflow has only ever been dry run.
-- **Green CI on an untested tree teaches the wrong habit.** The signal is
-  currently "it compiles", but it reads as "it works".
+- **Green CI still mostly means "it compiles".** One tested package does not
+  make the signal trustworthy, and it reads as "it works".
 
 ## Recommended next steps
 
-1. **Test `packages/cache` before wiring it into anything.** Vitest is already
-   in the catalog. Cover the freshness transitions with an injected clock,
-   single flight dedupe, eviction order, index and payload drift, and serve
-   stale on error. Roughly half a day, and it turns throwaway verification into
-   something CI re-runs.
+1. **Extend the test bar past one package.** `packages/cache` is covered, and
+   the same vitest setup ports to the rest: render tests for the UI packages and
+   a route smoke test per app. Until then CI cannot tell whether a component or
+   a route broke.
 2. **Decide the scope and adopt one build pattern.** If packages are for
    external consumption, copy the tsup setup from `rate-limit` into
    `tooling/tsup`, add `files` and a LICENSE, and publish under the real scope.

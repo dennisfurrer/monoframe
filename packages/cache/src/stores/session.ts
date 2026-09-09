@@ -34,9 +34,12 @@ export function createSessionStore(namespace: string): PayloadStore | null {
     },
 
     clear() {
-      const doomed = Object.keys(storage).filter((key) =>
-        key.startsWith(prefix),
-      );
+      const doomed: string[] = [];
+      for (let i = 0; i < storage.length; i += 1) {
+        const key = storage.key(i);
+        if (key?.startsWith(prefix)) doomed.push(key);
+      }
+
       for (const key of doomed) storage.removeItem(key);
       return Promise.resolve();
     },
