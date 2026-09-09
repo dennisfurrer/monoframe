@@ -13,15 +13,19 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "format": "prettier --check ./src --ignore-path ../../.gitignore",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@monoframe/eslint-config": "workspace:*",
     "@monoframe/prettier-config": "workspace:*",
     "@monoframe/tsconfig": "workspace:*",
     "eslint": "catalog:",
+    "fake-indexeddb": "^6.0.0",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "prettier": "@monoframe/prettier-config"
 }

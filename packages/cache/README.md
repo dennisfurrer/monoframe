@@ -102,6 +102,17 @@ Per-read options: `ttlMs`, `staleWhileRevalidateMs`, `force` (ignore the cached 
 - **The tiers can drift** - another tab clears storage, the browser evicts under pressure. An index hit with a missing payload is treated as a miss, and the stale index entry is dropped.
 - **Version bumps are the invalidation lever.** Change the response shape, bump `version`, every old entry is dead on read.
 
+## Tests
+
+```bash
+pnpm --filter @monoframe/cache test
+```
+
+63 tests across the freshness transitions (injected clock), single flight,
+eviction order, invalidation, index persistence and cross tab merge, the three
+payload stores, and index to payload drift. IndexedDB is covered with
+`fake-indexeddb`.
+
 ## Files
 
 ```
