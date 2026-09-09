@@ -11,6 +11,7 @@
     "clean": "git clean -xdf .cache .turbo dist generated node_modules",
     "db:generate": "pnpm prisma generate",
     "db:migrate": "pnpm with-env prisma migrate dev",
+    "db:push": "pnpm with-env prisma db push",
     "db:deploy": "pnpm with-env prisma migrate deploy",
     "db:studio": "pnpm with-env prisma studio",
     "db:reset": "pnpm with-env prisma migrate reset",

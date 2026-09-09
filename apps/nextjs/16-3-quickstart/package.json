@@ -1,0 +1,43 @@
+{
+  "name": "@monoframe/nextjs-16-3-quickstart",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "git clean -xdf .cache .next .turbo node_modules",
+    "dev": "next dev --port ${PORT:-3001}",
+    "build": "next build",
+    "start": "next start --port ${PORT:-3001}",
+    "lint": "eslint .",
+    "format": "prettier --check . --ignore-path=../../../.gitignore",
+    "typecheck": "tsc --noEmit",
+    "db:seed": "dotenv -e ../../../.env -- tsx seed.ts"
+  },
+  "dependencies": {
+    "@monoframe/cache": "workspace:*",
+    "@monoframe/db": "workspace:*",
+    "@monoframe/ui-atoms": "workspace:*",
+    "@monoframe/ui-molecules": "workspace:*",
+    "next": "16.3.4",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
+  },
+  "devDependencies": {
+    "@monoframe/eslint-config": "workspace:*",
+    "@monoframe/prettier-config": "workspace:*",
+    "@monoframe/tailwind-config": "workspace:*",
+    "@monoframe/tsconfig": "workspace:*",
+    "@types/node": "^22.15.29",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "autoprefixer": "^10.4.20",
+    "dotenv-cli": "^10.0.0",
+    "eslint": "catalog:",
+    "postcss": "^8.5.3",
+    "prettier": "catalog:",
+    "tailwindcss": "catalog:",
+    "tsx": "^4.20.3",
+    "typescript": "catalog:"
+  },
+  "prettier": "@monoframe/prettier-config"
+}

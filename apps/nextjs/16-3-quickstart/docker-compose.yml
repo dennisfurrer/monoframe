@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: monoframe-quickstart-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: monoframe
+      POSTGRES_PASSWORD: monoframe
+      POSTGRES_DB: monoframe
+    ports:
+      - "5433:5432"
+    volumes:
+      - quickstart-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U monoframe -d monoframe"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  quickstart-pgdata:

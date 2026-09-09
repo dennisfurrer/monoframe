@@ -2,11 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "globalDependencies": [".env*"],
-  "globalEnv": ["NODE_ENV", "PORT", "DATABASE_URL"],
+  "globalEnv": ["NODE_ENV", "PORT", "DATABASE_URL", "REVALIDATE_TOKEN"],
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^db:generate"],
-      "outputs": [".cache/tsbuildinfo.json", "dist/**", ".next/**", "generated/**"]
+      "outputs": [
+        ".cache/tsbuildinfo.json",
+        "dist/**",
+        ".next/**",
+        "generated/**"
+      ]
     },
     "dev": {
       "cache": false,
@@ -18,6 +23,9 @@
       "outputs": ["generated/**", "node_modules/.prisma/**"]
     },
     "db:migrate": {
+      "cache": false
+    },
+    "db:push": {
       "cache": false
     },
     "db:deploy": {
