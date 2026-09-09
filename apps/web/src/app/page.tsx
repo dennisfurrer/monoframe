@@ -18,7 +18,6 @@ export default function HomePage() {
       </p>
 
       <div className="grid w-full max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
-        {/* UI Atoms */}
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-text-muted">
             ui-atoms
@@ -62,7 +61,6 @@ export default function HomePage() {
           </Card>
         </section>
 
-        {/* UI Molecules */}
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-text-muted">
             ui-molecules
