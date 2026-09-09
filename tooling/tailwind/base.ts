@@ -1,11 +1,7 @@
 import type { Config } from "tailwindcss";
 
-/**
- * Monoframe Tailwind Base Configuration
- *
- * Colors use CSS custom properties for runtime theme switching.
- * Define values in globals.css under :root and [data-theme="..."] selectors.
- */
+// Colors resolve to CSS custom properties defined in globals.css so themes
+// can switch at runtime.
 export default {
   darkMode: ["class"],
   content: ["src/**/*.{ts,tsx}"],

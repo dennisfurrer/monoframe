@@ -1,7 +1,5 @@
-// Utilities
 export { cn } from "./utils/cn";
 
-// Components
 export { Button } from "./components/Button";
 export type { ButtonProps } from "./components/Button";
 

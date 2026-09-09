@@ -35,6 +35,17 @@ node_modules/.prisma/
 # Test
 coverage/
 
+# Assistant instructions, local only
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.claude/
+.cursor/
+.cursorrules
+.windsurfrules
+.aider*
+.github/copilot-instructions.md
+
 # Misc
 *.log
 npm-debug.log*
